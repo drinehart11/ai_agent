@@ -114,6 +114,7 @@ def main():
 
     # Read env
     ENDPOINT = os.getenv("LOCAL_LLM_ENDPOINT")
+    API_KEY = os.getenv("API_KEY")
     MODEL = os.getenv("MODEL_NAME")
     DEFAULT_MODE = os.getenv("DEFAULT_MODE", "shorten")
 

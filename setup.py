@@ -6,7 +6,8 @@ from dotenv import load_dotenv
 
 
 # local ai agent setup: connects to LM Studio
-# No authorization needed for local endpoint
+# will attempt connection without API_KEY if not present in .env
+
 # last edit: 6-FEB-2026
 # author: Duane Rinehart
 
@@ -17,14 +18,17 @@ load_dotenv(parent_env)
 
 ENDPOINT = os.getenv("LOCAL_LLM_ENDPOINT")
 MODEL = os.getenv("MODEL_NAME")
+API_KEY = os.getenv("API_KEY")
 
+headers = {
+    "Content-Type": "application/json"
+}
+if API_KEY:
+    headers["Authorization"] = f"Bearer {API_KEY}"
 
 response = requests.post(
   f"{ENDPOINT}",
-  headers={
-    #"Authorization": f"Bearer {os.environ['LM_API_TOKEN']}",
-    "Content-Type": "application/json"
-  },
+  headers=headers,
   json={
     "model": MODEL,
     "input": "Write a short haiku about sunrise."
